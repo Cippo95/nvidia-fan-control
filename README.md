@@ -15,7 +15,7 @@ You can make it a startup script in multiple ways: I use i3wm so I just have to 
 This script will set the fan speed accordingly to a fan curve specified with points.  
 The points have two coordinates specified with two arrays, one for temperature and one for fan speed, it is the most common way of doing things.  
 
-[INSERT PICTURE HERE?]
+![fan curve example](./fan_curve_example.png)
 
 The scripts has sensible named variables so you can understand what is going on...still, I will probably change them if I find some better naming (and I have already some idea).
 

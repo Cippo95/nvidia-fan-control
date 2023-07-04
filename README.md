@@ -1,0 +1,1 @@
+# simple-nvidia-fancontrol

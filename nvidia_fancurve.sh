@@ -16,8 +16,12 @@ sleep_seconds=1
 # Temperature hysteresis
 temperature_hysteresis=5
 
-# previous_fan_speed is needed for clever updating of fan speed
-previous_fan_speed=${fan_speed_points[0]}
+# step_down_temperature for fan hysteresis, 0 at the beginning
+step_down_temperature=0
+
+# setted_fan_speed rappresents the current fan speed 
+# fan_speed won't update always the setted_fan_speed (fan hysteresis)
+setted_fan_speed=${fan_speed_points[0]}
 
 # TEST THE VALIDITY OF THE FAN CURVE POINTS: 
 
@@ -80,29 +84,23 @@ do
 	let "fan_speed_increment = fan_speed_delta*temperature_increment/temperature_delta"
 	echo "fan_speed_increment: $fan_speed_increment"
 
-	# save fan_speed to previous_fan_speed, we need it for fan_speed update logic
-	if [[ fan_speed -gt previous_fan_speed ]]; then
-		previous_fan_speed=$fan_speed
-		echo "previous_fan_speed: $previous_fan_speed"
-	fi
-	
 	# calculate the fanspeed
 	let "fan_speed = fan_speed_points[point - 1] + fan_speed_increment"
 	echo "fan_speed: $fan_speed"
 
-	# calculate temperature for lowering fan speed
-	if [[ fan_speed -gt previous_fan_speed ]]; then
-		let "step_down_temperature = temperature - temperature_hysteresis"
-		echo "step_down_temperature: $step_down_temperature"
-	fi
-
 	# set fan speed checking hysteresis or higher temperature (higher fan_speed)
-	if [[ temperature -lt step_down_temperature || fan_speed -gt previous_fan_speed ]]; then
+	if [[ temperature -lt step_down_temperature || fan_speed -gt setted_fan_speed ]]; then
+		# set the fan_speed
 		nv-control-fan $fan_speed
+
+		# update setted_fan_speed
+		setted_fan_speed=$fan_speed
+		echo "setted_fan_speed: $setted_fan_speed"
+
+		# calculate temperature for lowering fan speed
 		let "step_down_temperature = temperature - temperature_hysteresis"
 		echo "step_down_temperature: $step_down_temperature"
-		previous_fan_speed=$fan_speed
-		echo "previous_fan_speed: $previous_fan_speed"
+
 	fi
 	echo -e
 

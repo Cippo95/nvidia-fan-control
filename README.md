@@ -28,7 +28,7 @@ The points have two coordinates specified by two arrays:
 
 ### Self explanatory variables
 
-I think that the scripts has self explanatory variables, so it should be easy to understand and debug.
+I think that the script has self explanatory variables, so it should be easy to understand and debug.
 
 ### Fan hysteresys logic
 

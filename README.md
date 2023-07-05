@@ -28,9 +28,11 @@ The points have two coordinates specified by two arrays:
 
 ### Self explanatory variables
 
-I think that the script has self explanatory variables, so it should be easy to understand and debug.
+I think that the script has self explanatory variables, so it should be easy to understand and debug.  
 
-### Fan hysteresys logic
+I may well do a data flow diagram in the future for even more clarity.
+
+### Fan hysteresis logic
 
 It was a nice to have feature so I have implemented a simple fan hysteresis logic, it is controlled by `temperature_hysteresis` variable.  
 

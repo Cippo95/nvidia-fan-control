@@ -46,8 +46,8 @@ So I've looked how NV-CONTROL API works and I have written `nv-control-fan.c` th
 
 You can compile this binary file yourself, but you need to:
 1. Download the nvidia-settings repository: https://github.com/NVIDIA/nvidia-settings;
-2. Put `nv-control-fan.c` in the `sample` folder.
-3. Modify the `Makefile` to compile also this source code.
+2. Put `nv-control-fan.c` in the `sample` folder;
+3. Modify the `Makefile` to compile also this source code;
 4. Execute `make all` and you will have your binary.
 
 In case this repository gets more attention, I can look to make this process available directly in my repo, since it should all be open source software.

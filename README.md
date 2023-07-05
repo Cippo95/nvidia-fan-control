@@ -2,7 +2,7 @@
 
 I have made this software because I often see too complex or too simple solutions.  
 
-It works with nvidia's proprietary drivers and X11.  
+It works with NVIDIA's proprietary drivers and X11.  
 
 It is the combination of a simple bash script and a binary file to set the fan speed.
 

@@ -1,24 +1,52 @@
 # simple-nvidia-fancontrol
 
-This software works well enough for me, but it is still work in progress!
+I have made this software because I often see too complex or too simple solutions.  
 
-I don't like overly complicated scripts/programs to adjust the fans of my graphics card, so I have made a bash script which is around 100 lines (including debugging lines and comments).
-It uses also a binary file for an efficient command to set the fan speed.  
+It works with nvidia's proprietary drivers and X11.  
+
+It is the combination of a simple bash script and a binary file to set the fan speed.
+
+This software works well enough for me, but it is still work in progress!  
 
 ## Usage
-Modify `nvidia-fancurve.sh` so it can find `nv-control-fan`, or put the binary on your path, I have it in my `~/.local/bin` folder. Launch `nvidia-fancurve.sh` as you wish, I advise to try it on a terminal to see if it works correctly.  
+
+It could be tricky for the newbie, but you need to:  
+1. Modify `nvidia-fancurve.sh` so it can find `nv-control-fan`, or put the binary on your $PATH (I have it in my `~/.local/bin` folder);
+2. Launch `nvidia-fancurve.sh` as you wish, I advise to try it on a terminal to see if it works correctly.  
 
 You can make it a startup script in multiple ways: I use i3wm so I just have to add it to my config file.  
 
 ## Technical informations
 
-This script will set the fan speed accordingly to a fan curve specified with points.  
-The points have two coordinates specified with two arrays, one for temperature and one for fan speed, it is the most common way of doing things.  
+### Fan curve points
+
+This script will set the fan speed accordingly to a fan curve specified by points.  
+
+The points have two coordinates specified by two arrays:
+- `temperature_points` for temperatures;
+- `fan_speed_points` for fan speed.
 
 ![fan curve example](./fan_curve_example.png)
 
-The scripts has sensible named variables so you can understand what is going on...still, I will probably change them if I find some better naming (and I have already some idea).
+### Self explanatory variables
 
-I have implemented a fan hysteresis logic.  
+I think that the scripts has self explanatory variables, so it should be easy to understand and debug.
 
-I use a "custom made by me" binary to control the fans with NV-CONTROL, so this works under X11, I don't think it works for Wayland environments. I have uploaded the source code, it needs to be compiled with other source code that you can find in the nvidia-settings repository. I have done this because using nvidia-settings would cause mild stuttering in game and I didn't liked it at all! I have just adjusted one of their sample files to control fans, that's it.  
+### Fan hysteresys logic
+
+It was a nice to have feature so I have implemented a simple fan hysteresis logic, it is controlled by `temperature_hysteresis` variable.  
+
+### Reason of the binary file
+
+I have compiled a binary file `nv-control-fan` which controls the fans using the NV-CONTROL extension.  
+
+This command in the script can be changed with `nvidia-settings -a gputargetfanspeed=$fan_speed` but I have noticed in game stuttering with it.
+So I look how this NVIDIA API works and I have written `nv-control-fan.c` that compiles in `nv-control-fan`, it sets **all the fans of the graphics card to the same speed**.
+
+You can compile this binary file yourself, but you need to:
+1. Download the nvidia-settings repository: https://github.com/NVIDIA/nvidia-settings;
+2. Put `nv-control-fan.c` in the `sample` folder.
+3. Modify the `Makefile` to compile also this source code.
+4. Execute `make all` and you will have your binary.
+
+In case this repository gets more attention, I can look to make this process available directly in my repo, since it should all be open source software.

@@ -40,7 +40,7 @@ I have compiled a binary file `nv-control-fan` which controls the fans using the
 
 This command in the script can be changed with `nvidia-settings -a gputargetfanspeed=$fan_speed` but I have noticed in game stuttering with it.  
 
-So I've looked how NV-CONTROL API works and I have written `nv-control-fan.c` that compiles in `nv-control-fan`, it sets **all the fans of the graphics card to the same speed**.
+So I've looked how NV-CONTROL API works and I have written `nv-control-fan.c` that compiles in `nv-control-fan`: it sets **all the fans of the graphics card to the same speed**.
 
 You can compile this binary file yourself, but you need to:
 1. Download the nvidia-settings repository: https://github.com/NVIDIA/nvidia-settings;

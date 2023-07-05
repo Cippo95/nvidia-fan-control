@@ -32,7 +32,7 @@ The points have two coordinates specified by two arrays:
 
 I think that the script has self explanatory variables, so it should be easy to understand and debug.
 
-### Fan hysteresys logic
+### Fan hysteresis logic
 
 It was a nice to have feature so I have implemented a simple fan hysteresis logic, it is controlled by `temperature_hysteresis` variable.  
 
@@ -51,3 +51,12 @@ You can compile this binary file yourself, but you need to:
 4. Execute `make all` and you will have your binary.
 
 In case this repository gets more attention, I can look to make this process available directly in my repo, since it should all be open source software.
+
+### Comment on different solutions
+
+I have seen many different solutions:
+- Some being more simple with just temperature/fan speed steps, no hysteresis... just too simple.
+- Some using the nvidia-settings commands causing in game stuttering at regular intervals.
+- Some being very complex:
+  - Many lines of code doing... to be honest I don't know what.
+  - GreenWithEnvy (nice software) but too heavy to just adjust fan speed.

@@ -26,13 +26,13 @@ The points have two coordinates specified by two arrays:
 
 ![fan curve example](./fan_curve_example.png)
 
+**You need to edit the arrays with the values that you want!**
+
 ### Self explanatory variables
 
-I think that the script has self explanatory variables, so it should be easy to understand and debug.  
+I think that the script has self explanatory variables, so it should be easy to understand and debug.
 
-I may well do a data flow diagram in the future for even more clarity.
-
-### Fan hysteresis logic
+### Fan hysteresys logic
 
 It was a nice to have feature so I have implemented a simple fan hysteresis logic, it is controlled by `temperature_hysteresis` variable.  
 
@@ -42,7 +42,7 @@ I have compiled a binary file `nv-control-fan` which controls the fans using the
 
 This command in the script can be changed with `nvidia-settings -a gputargetfanspeed=$fan_speed` but I have noticed in game stuttering with it.  
 
-So I've looked how NV-CONTROL API works and I have written `nv-control-fan.c` that compiles in `nv-control-fan`: it sets **all the fans of the graphics card to the same speed**.
+So I've looked how NV-CONTROL API works and I have written `nv-control-fan.c` that compiles in `nv-control-fan`: **it sets all the fans of the graphics card to the same speed**.
 
 You can compile this binary file yourself, but you need to:
 1. Download the nvidia-settings repository: https://github.com/NVIDIA/nvidia-settings;

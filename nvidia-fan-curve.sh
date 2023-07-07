@@ -1,5 +1,5 @@
 #!/bin/bash
-# Script: NVIDIA fan control
+# Script: nvidia-fan-control
 # Author: Cippo95
 # Description: a simple fan control for NVIDIA cards, it works for my setup 
 # but probably this kind of simplicity is not good for every system.
@@ -29,13 +29,13 @@ setted_fan_speed=${fan_speed_points[0]}
 
 # TEST THE VALIDITY OF THE FAN CURVE POINTS: 
 
-# 1. Test that fan curve arrays are the same length
+# Test that fan curve arrays are the same length
 if [[ ${#temperature_points[@]} -ne ${#fan_speed_points[@]} ]]; then
 	echo "ERROR: temperature_points and fan_speed_points are not the same length!"
 	exit 1
 fi
 
-# 2. Test that fan curve arrays have increasing numbers (fan speed can also be equal)
+# Test that fan curve arrays have increasing numbers (fan speed can also be equal)
 for (( i=0; i<${#temperature_points[@]}-1; i++ ));
 do
 	if [[ ${temperature_points[i]} -ge ${temperature_points[i+1]} ]]; then
@@ -117,6 +117,6 @@ do
 	fi
 	echo -e
 
-	# 10. Sleep before checking temperature again
+	# Sleep before checking temperature again
 	sleep $sleep_seconds 
 done

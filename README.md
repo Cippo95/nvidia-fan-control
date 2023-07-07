@@ -52,7 +52,7 @@ Both this commands can be changed with commands already available from the insta
 I have tested the execution time of the main loop on my computer (with a Ryzen 5 5600):
 - If fan speed doesn't need to change it takes around 1.5 milliseconds.
 - If fan speed needs to change it takes around 2.5 milliseconds.
-Remember that this is something gets done by default every second (but you can change it with sleep_seconds).
+Remember that this is something that gets done by default every second (but you can change it with sleep_seconds).
 
 I think that this is pretty fast and probably the next step is going for a binary doing the job of the bash script: **I think that it is unnecessary but maybe I will do it for fun**.
 

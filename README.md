@@ -49,6 +49,13 @@ Both this commands can be changed with commands already available from the insta
   - `nvidia-settings -q gpucoretemp -t` **but I have noticed in-game stuttering with it**.
   - `nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader` **it doesn't cause stutters but it takes 11-12 milliseconds (and I can do better)**.
 
+I have tested the execution time of the main loop on my computer (with a Ryzen 5 5600):
+- If fan speed doesn't need to change it takes around 1.5 milliseconds.
+- If fan speed needs to change it takes around 2.5 milliseconds.
+Remember that this is something gets done by default every second (but you can change it with sleep_seconds).
+
+I think that this is pretty fast and probably the next step is going for a binary doing the job of the bash script: **I think that it is unnecessary but maybe I will do it for fun**.
+
 You can compile these binaries yourself, but you need to:
 1. Download the nvidia-settings repository: https://github.com/NVIDIA/nvidia-settings;
 2. Put the source C files in the `sample` folder;

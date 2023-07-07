@@ -47,14 +47,14 @@ Both this commands can be changed with commands already available from the insta
 - `nv-control fan $fan_speed` can be changed with `nvidia-settings -a gputargetfanspeed=$fan_speed` **but I have noticed in-game stuttering with it**.
 - `nv-control-core-temperature` can be changed with:
   - `nvidia-settings -q gpucoretemp -t` **but I have noticed in-game stuttering with it**.
-  - `nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader` **it doesn't cause stutters but it takes 11-12 milliseconds (and I can do better)**.
+  - `nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader` **it seems stutters free but it takes 11-12 milliseconds to execute on my PC**.
 
 I have tested the execution time of the main loop on my computer (with a Ryzen 5 5600):
 - If fan speed doesn't need to change it takes around 1.5 milliseconds.
-- If fan speed needs to change it takes around 2.5 milliseconds.
-Remember that this is something that gets done by default every second (but you can change it with sleep_seconds).
+- If fan speed needs to change it takes around 2.5 milliseconds.  
+This is something that gets done every second by default (but you can change it with sleep_seconds).
 
-I think that this is pretty fast and probably the next step is going for a binary doing the job of the bash script: **I think that it is unnecessary but maybe I will do it for fun**.
+I think that this is pretty fast and probably the next step is to substitute the bash script with another binary calling the functions: **I think that it is unnecessary but maybe I will do it for fun**.
 
 You can compile these binaries yourself, but you need to:
 1. Download the nvidia-settings repository: https://github.com/NVIDIA/nvidia-settings;
@@ -71,4 +71,4 @@ I have seen many different solutions:
 - Some using the nvidia-settings commands causing in game stuttering at regular intervals.
 - Some being very complex:
   - Many lines of code doing... to be honest I don't know what.
-  - GreenWithEnvy (nice software) but too heavy to just adjust fan speed.
+  - GreenWithEnvy is nice but heavy to just adjust fan speed: 145 megabytes reported by xfce4-taskmanager, my bash script occupies 3.5 megabytes.

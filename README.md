@@ -39,7 +39,7 @@ When a new fan speed gets setted, the temperature for which the fan speed decrea
 
 ### Reason of the binary files
 
-I have compiled two binary file `nv-control-fan` and `nv-control-core-temperature` using the NV-CONTROL extension:
+I have compiled two binaries `nv-control-fan` and `nv-control-core-temperature` using the NV-CONTROL extension:
 - `nv-control-fan` controls the fans: **it sets all the fans of the graphics card to the same speed**;
 - `nv-control-core-temperature` queries the core GPU temperature.
 

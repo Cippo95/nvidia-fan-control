@@ -35,7 +35,7 @@ I think that the script has self explanatory variables, so it should be easy to 
 ### Fan hysteresis logic
 
 It was a nice to have feature so I have implemented a simple fan hysteresis logic, it is controlled by `temperature_hysteresis` variable.  
-When a new fan speed gets setted, the temperature for which the fan speed decreases is calculated as `step-down-temperature`.
+When a new fan speed gets setted, the temperature for which the fan speed decreases is calculated as `step_down_temperature`.
 
 ### Reason of the binary files
 

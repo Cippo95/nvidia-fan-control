@@ -6,6 +6,32 @@ I have made this software because I often see too complex or too simple solution
 
 This software works well enough for me, but it is still work in progress!  
 
+## Further requirements
+
+### Run X11 as root
+NVIDIA wants you to run X11 as root to controll the fan speed.  
+You will have to add this to your `/etc/X11/Xwrapper.config` (create the file if it doesn't exist).
+
+```
+allowed_users=anybody
+needs_root_rights=yes
+```
+
+Depending on how your distribution packages X11 you might have to setuid /usr/lib/Xorg.wrap as well.  
+You can do so by running:
+`sudo chmod u+s /usr/lib/Xorg.wrap`
+
+PS: this section is adapted from `nvfancontrol` guide, I didn't had to do this while using **lightdm** as desktop manager.
+Right now I don't use a desktop manager and found out that my software wouldn't work without this (I needed jut the Xwrapper.config file).
+
+### Enable Coolbits for fan control
+You need to enable coolbits 4 you have multiple ways of doing this:
+- You can execute `sudo nvidia-xconfig --cool-bits=4` and it will change your `xorg.conf`.
+- You can manually modify the `xorg.conf`.
+
+### Dependencies
+While compiling the source code yourself you may need some dependency, it should become clear what you need trying to compile it (it should complain about the libraries that you need).
+
 ## Usage
 
 It could be tricky for the newbie, but you need to:  

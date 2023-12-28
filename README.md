@@ -21,7 +21,7 @@ Depending on how your distribution packages X11 you might have to setuid /usr/li
 You can do so by running:
 `sudo chmod u+s /usr/lib/Xorg.wrap`
 
-PS: this section is adapted from [nvfancontrol](https://github.com/foucault/nvfancontrol/tree/master) guide, I didn't have to do this while using **lightdm** as desktop manager.
+PS: this section is adapted from [nvfancontrol](https://github.com/foucault/nvfancontrol/tree/master) guide, I didn't have to do this while using **lightdm** as desktop manager.  
 Right now I don't use a desktop manager and found out that my software wouldn't work without this (I needed jut the Xwrapper.config file).
 
 ### Enable Coolbits for fan control

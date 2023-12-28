@@ -22,7 +22,7 @@ You can do so by running:
 `sudo chmod u+s /usr/lib/Xorg.wrap`
 
 PS: this section is adapted from [nvfancontrol](https://github.com/foucault/nvfancontrol/tree/master) guide, I didn't have to do this while using **lightdm** as desktop manager.  
-Right now I don't use a desktop manager and I needed to make the Xwrapper.config file, in order to have my software work (as any fan control utility even gwe wouldn't  work without this).
+Now I don't use a desktop manager and I need the `Xwrapper.config` file in order to execute this software (as any fan control utility).
 
 ### Enable Coolbits for fan control
 You need to enable coolbits 4 you have multiple ways of doing this:

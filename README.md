@@ -25,7 +25,7 @@ PS: this section is adapted from [nvfancontrol](https://github.com/foucault/nvfa
 Now I don't use a desktop manager and I need the `Xwrapper.config` file in order to execute this software (as any fan control utility).
 
 ### Enable Coolbits for fan control
-You need to enable coolbits 4 you have multiple ways of doing this:
+You need to enable coolbits with value of 4, you have multiple ways of doing this:
 - You can execute `sudo nvidia-xconfig --cool-bits=4` and it will change your `xorg.conf`.
 - You can manually modify the `xorg.conf`.
 

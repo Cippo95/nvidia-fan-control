@@ -27,7 +27,7 @@ Now I don't use a desktop manager and I need the `Xwrapper.config` file in order
 ### Enable Coolbits for fan control
 You need to enable coolbits with value of 4, you have multiple ways of doing this:
 - You can execute `sudo nvidia-xconfig --cool-bits=4` and it will change your `xorg.conf`.
-- You can manually modify the `xorg.conf`.
+- You can manually modify the `xorg.conf` [(arch wiki tips)](https://wiki.archlinux.org/title/NVIDIA/Tips_and_tricks#Enabling_overclocking).
 
 ### Dependencies
 While compiling the source code yourself you may need some dependency, it should become clear what you need trying to compile it (it should complain about the libraries that you need).

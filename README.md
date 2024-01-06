@@ -82,6 +82,8 @@ This is something that gets done every second by default (but you can change it 
 
 I think that this is pretty fast and probably the next step is to substitute the bash script with another binary calling the functions: **I think that it is unnecessary but maybe I will do it for fun**.
 
+> To be honest, after some time I think that the bash script is very flexible: if we find new better commands to check the temperature and change the fan speed, we just need to modify to lines of code without recompiling stuff.
+
 You can compile these binaries yourself, but you need to:
 1. Download the nvidia-settings repository: https://github.com/NVIDIA/nvidia-settings;
 2. Put the source C files in the `sample` folder;

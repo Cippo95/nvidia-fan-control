@@ -1,15 +1,33 @@
 # nvidia-fan-control
 
-I have made this software because I often see too complex or too simple solutions:  
-- It works with NVIDIA's proprietary drivers, X11 and x86-64 computers;
-- It is the combination of a simple bash script and two binary files (one for checking temperature and one for setting fan speed).
+I often see solutions that I don't like to control fans on NVIDIA's graphics cards:
+- They can be too complex and as you will see a short bash script could be more than enough;
+- They can be too simple, for example having a stepped fan curve or not using temperature hysteresis.
 
-This software works well enough for me, but it is still work in progress!  
+My solution starts from a simple bash script which just needs three commands to:
+1. Enable manual fan tuning;
+2. Check the temperature;
+3. Set the fan speed.
 
-## Further requirements
+There are few ways of executing these commands, some are really slow, some are really fast but custom as the binary files that I use.  
+I'll explain all the stuff in detail: you have the freedom of using what you think is good enough for you.
+
+Caveats and work in progress:
+- It works with NVIDIA's drivers, X11 and x86-64 computers;
+- I have just found out a Python library to use NVML, which can manage the commands needed; I'm already seeing stuff working: it is slower than using my binary files but this still could be good for Wayland users since it doesn't depend on X11.
+
+As an end note: this software works well enough for me, but your mileage may vary.
+
+## Requirements
+
+### NVIDIA's driver
+You need NVIDIA's driver (proprietary or the new open kernel modules) to use this software.
 
 ### Run X11 as root
-NVIDIA wants you to run X11 as root to controll the fan speed.  
+> This section is adapted from [nvfancontrol](https://github.com/foucault/nvfancontrol/tree/master) guide.  
+> If you use a desktop manager you may not need this, I run X from console with `startx` and I need this.  
+
+NVIDIA wants you to run X11 as root to control the fan speed.  
 You will have to add this to your `/etc/X11/Xwrapper.config` (create the file if it doesn't exist).
 
 ```
@@ -18,21 +36,21 @@ needs_root_rights=yes
 ```
 
 Depending on how your distribution packages X11 you might have to setuid /usr/lib/Xorg.wrap as well.  
-You can do so by running:
+You can do so by running in a terminal:
 `sudo chmod u+s /usr/lib/Xorg.wrap`
-
-PS: this section is adapted from [nvfancontrol](https://github.com/foucault/nvfancontrol/tree/master) guide, I didn't have to do this while using **lightdm** as desktop manager.  
-Now I don't use a desktop manager and I need the `Xwrapper.config` file in order to execute this software (as any fan control utility).
 
 ### Enable Coolbits for fan control
 You need to enable coolbits with value of 4, you have multiple ways of doing this:
 - You can execute `sudo nvidia-xconfig --cool-bits=4` and it will change your `xorg.conf`.
 - You can manually modify the `xorg.conf` [(arch wiki tips)](https://wiki.archlinux.org/title/NVIDIA/Tips_and_tricks#Enabling_overclocking).
 
-### Dependencies
-While compiling the source code yourself you may need some dependency, it should become clear what you need trying to compile it (it should complain about the libraries that you need).
+### Dependencies to compile the binaries
+
+I don't have the exact list but while compiling the source code yourself the compiler should complain about the libraries that it lacks.  
+You should be able to install them, just pay attention to the fact that the exact packages names depend on your package manager (apt, dnf, pacman etc. have different names for the same library packages).
 
 ## Usage
+> Work in progress: I want to better explain the usage with different commands, I may even do more scripts and even separate them with different branches
 
 It could be tricky for the newbie, but you need to:  
 1. Modify `nvidia-fan-curve.sh` so it can find `nv-control-core-temperature` and `nv-control-fan`, or put the binaries on your $PATH (I have it in my `~/.local/bin` folder);

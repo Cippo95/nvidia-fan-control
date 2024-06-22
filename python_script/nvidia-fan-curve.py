@@ -15,9 +15,9 @@ temperature_hysteresis = 5
 nvmlInit()
 
 # Get device count
-deviceCount = nvmlDeviceGetCount()
+device_count = nvmlDeviceGetCount()
 # For every device get its handle and fan count
-for i in range(deviceCount):
+for i in range(device_count):
     handle = nvmlDeviceGetHandleByIndex(i)
     fan_count = nvmlDeviceGetNumFans(handle)
 

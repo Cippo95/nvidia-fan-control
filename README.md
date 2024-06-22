@@ -87,7 +87,7 @@ The points have two coordinates specified by two arrays:
 - `temperature_points` for temperatures;
 - `fan_speed_points` for fan speed.
 
-![fan curve example](./fan_curve_example.png)
+![fan curve example](./img/fan_curve_example.png)
 
 **You need to edit the arrays with the values that you want!**
 

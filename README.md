@@ -17,6 +17,12 @@ Caveats:
 - The Bash script is intended for X11 users, using the binaries it is the fastest script to use;
 - The Python script is intended for all users because it doesn't depend on X11 but on a Python library;
 
+Folders:
+- `bash_script` contains the bash script and two binaries (one for checking temperature, the other for setting the fan speed);
+- `img` just contains a drawing of a fan curve to explain the temperature and fan speed arrays;
+- `python_script` contains the python script;
+- `src` contains the C sources for the binaries;
+
 As an end note: this software works well enough for me, I'm doing this as an hobby and your mileage may vary.
 
 ## Requirements
@@ -58,6 +64,21 @@ You should be able to install them, just pay attention to the fact that the exac
 Install [(nvidia-ml-py)](https://pypi.org/project/nvidia-ml-py/) as a super user.
 
 ## Usage
+
+### Modify the script
+**Any of the following script is intended to be modified to your liking:**
+- On the temperature and fan speed arrays (together they define the fan curve);
+- On the sleep seconds, the time to wait before repeating the check on the GPU temperature;
+- On the temperature hysteresis.
+
+Current default settings in the bash script:
+- temperature_points array = {0, 60, 75, 85};
+- fan_speed_points array = {25, 25, 50, 100};
+- sleep seconds = 1;
+- temperature hysteresis = 5;
+
+**About the accepted fan speeds they can differ from video card to video card!**  
+For example the Python scripts has a fan_speed_points array = {30, 30, 50, 100}, because my current 4070 Super starts from there, instead my previous 2060 Super started from 25%.
 
 ### Bash script
 

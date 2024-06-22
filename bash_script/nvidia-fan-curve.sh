@@ -61,7 +61,13 @@ do
 	# Check temperature
 	temperature=`nv-control-core-temperature`
 	echo "temperature: $temperature"
-
+ 
+        # Check temperature validity or stop the script
+        case $temperature in
+            ''|*[!0-9]*) exit 1;;
+            *) echo "temperature: $temperature";;
+        esac
+	
 	if [[ temperature -lt step_down_temperature || temperature -gt previous_temperature ]]; then
 		# Reset current point 
 		point=0

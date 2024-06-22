@@ -1,8 +1,8 @@
 # nvidia-fan-control
 
 I often see solutions that I don't like to control fans on NVIDIA's graphics cards:
-- They can be too complex and as you will see a short bash script could be more than enough;
-- They can be too simple, for example having a stepped fan curve or not using temperature hysteresis.
+- They can be too complex and as you will see a short script could be more than enough;
+- They can be too simple, for example having a stepped fan curve or not implementing temperature hysteresis.
 
 My solution starts from a simple bash script which just needs three commands to:
 1. Enable manual fan tuning;
@@ -12,18 +12,21 @@ My solution starts from a simple bash script which just needs three commands to:
 There are few ways of executing these commands, some are really slow, some are really fast but custom as the binary files that I use.  
 I'll explain all the stuff in detail: you have the freedom of using what you think is good enough for you.
 
-Caveats and work in progress:
-- It works with NVIDIA's drivers, X11 and x86-64 computers;
-- I have just found out a Python library to use NVML, which can manage the commands needed; I'm already seeing stuff working: it is slower than using my binary files but this still could be good for Wayland users since it doesn't depend on X11.
+Caveats:
+- This is intended to be used with NVIDIA's drivers.
+- The Bash script is intended for X11 users, using the binaries it is the fastest script to use;
+- The Python script is intended for all users because it doesn't depend on X11 but on a Python library;
 
-As an end note: this software works well enough for me, but your mileage may vary.
+As an end note: this software works well enough for me, I'm doing this as an hobby and your mileage may vary.
 
 ## Requirements
 
 ### NVIDIA's driver
 You need NVIDIA's driver (proprietary or the new open kernel modules) to use this software.
 
-### Run X11 as root
+### Requirements for the Bash script
+
+#### Run X11 as root
 > This section is adapted from [nvfancontrol](https://github.com/foucault/nvfancontrol/tree/master) guide.  
 > If you use a desktop manager you may not need this, I run X from console with `startx` and I need this.  
 
@@ -39,24 +42,40 @@ Depending on how your distribution packages X11 you might have to setuid /usr/li
 You can do so by running in a terminal:
 `sudo chmod u+s /usr/lib/Xorg.wrap`
 
-### Enable Coolbits for fan control
+#### Enable Coolbits for fan control
 You need to enable coolbits with value of 4, you have multiple ways of doing this:
 - You can execute `sudo nvidia-xconfig --cool-bits=4` and it will change your `xorg.conf`.
 - You can manually modify the `xorg.conf` [(arch wiki tips)](https://wiki.archlinux.org/title/NVIDIA/Tips_and_tricks#Enabling_overclocking).
 
-### Dependencies to compile the binaries
+#### Dependencies to compile the binaries
 
-I don't have the exact list but while compiling the source code yourself the compiler should complain about the libraries that it lacks.  
-You should be able to install them, just pay attention to the fact that the exact packages names depend on your package manager (apt, dnf, pacman etc. have different names for the same library packages).
+I don't have the exact list but while compiling the compiler should complain about the libraries that it lacks.  
+You should be able to install them, just pay attention to the fact that the exact packages names depend on your package manager.
+
+### Requirements for the Python script
+
+#### Install nvidia-ml-py
+Install [(nvidia-ml-py)](https://pypi.org/project/nvidia-ml-py/) as a super user.
 
 ## Usage
-> Work in progress: I want to better explain the usage with different commands, I may even do more scripts and even separate them with different branches
 
-It could be tricky for the newbie, but you need to:  
+### Bash script
+
+I use the Bash script with the binaries, but setting up could be tricky for the newbie, you need to:  
 1. Modify `nvidia-fan-curve.sh` so it can find `nv-control-core-temperature` and `nv-control-fan`, or put the binaries on your $PATH (I have it in my `~/.local/bin` folder);
 2. Launch `nvidia-fan-curve.sh` as you wish, I advise to try it on a terminal to see if it works correctly.  
 
+**If you don't like to use the binaries** you can replace them in the script with different commands, I have examples below in "Technical informations".  
+
 You can make it a startup script in multiple ways: I use i3wm so I just have to add it to my config file.  
+
+### Python script
+
+You need to execute the script as a super user because setting fan speed still needs it with NVML.
+> I have tried with i3, then using X11, but it should work with Wayland (for some reason Hyprland crashes on me right now).
+
+You can make it a startup script in multiple ways, looking online it is often recommended to make systemd services.
+> I haven't tried yet, I have done some systemd service in the past but for now I don't put the steps in this documentation.
 
 ## Technical informations
 
@@ -93,14 +112,10 @@ Both this commands can be changed with commands already available from the insta
   - `nvidia-settings -q gpucoretemp -t` **but I have noticed in-game stuttering with it**.
   - `nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader` **it seems stutters free but it takes 11-12 milliseconds to execute on my PC**.
 
-I have tested the execution time of the main loop on my computer (with a Ryzen 5 5600):
+I have tested the execution time of the main loop on my computer (with a Ryzen 5 5600, using the `time` command):
 - If fan speed doesn't need to change it takes around 1.5 milliseconds.
 - If fan speed needs to change it takes around 2.5 milliseconds.  
 This is something that gets done every second by default (but you can change it with sleep_seconds).
-
-I think that this is pretty fast and probably the next step is to substitute the bash script with another binary calling the functions: **I think that it is unnecessary but maybe I will do it for fun**.
-
-> To be honest, after some time I think that the bash script is very flexible: if we find new better commands to check the temperature and change the fan speed, we just need to modify to lines of code without recompiling stuff.
 
 You can compile these binaries yourself, but you need to:
 1. Download the nvidia-settings repository: https://github.com/NVIDIA/nvidia-settings;
@@ -110,11 +125,11 @@ You can compile these binaries yourself, but you need to:
 
 In case this repository gets more attention, I can look to make this process available directly in my repo, since it should all be open source software.
 
-### Comment on different solutions
+### Python script and NVML
 
-I have seen many different solutions:
-- Some being more simple with just temperature/fan speed steps, no hysteresis... just too simple.
-- Some using the nvidia-settings commands causing in game stuttering at regular intervals.
-- Some being very complex:
-  - Many lines of code doing... to be honest I don't know what.
-  - GreenWithEnvy is nice but heavy to just adjust fan speed: 145 megabytes reported by xfce4-taskmanager, my bash script occupies 3.5 megabytes.
+Having found out about NVML I was looking to compile some binary for using it, but I have found out a Python library doing the wrapping.
+I have installed the library and translated my original bash script in Python which depends only on that library.
+
+Since it doesn't depend on X11 I think it should be great for Wayland users and maybe also for users from SSH connections, but I would like some feedback on this.
+
+The only caveat is that it is significantly slower then my bash script + binaries, but it doesn't seem to cause stuttering in game.

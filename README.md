@@ -13,7 +13,7 @@ There are few ways of executing these commands, some are really slow, some are r
 I'll explain all the stuff in detail: you have the freedom of using what you think is good enough for you.
 
 Caveats:
-- This is intended to be used with NVIDIA's drivers.
+- This is intended to be used with NVIDIA's drivers and in general with a single graphics card.
 - The Bash script is intended for X11 users, using the binaries it is the fastest script to use;
 - The Python script is intended for all users because it doesn't depend on X11 but on a Python library;
 

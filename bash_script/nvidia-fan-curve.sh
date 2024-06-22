@@ -58,9 +58,8 @@ nv-control-fan ${fan_speed_points[0]}
 
 while true
 do
-	# Check temperature
+	# Get temperature
 	temperature=`nv-control-core-temperature`
-	echo "temperature: $temperature"
  
         # Check temperature validity or stop the script
         case $temperature in
